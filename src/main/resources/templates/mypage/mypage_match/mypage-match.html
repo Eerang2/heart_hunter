@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+
+<main>
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+
+    <section class="hero-section d-flex">
+        <div class="container d-flex">
+            <div class="row d-flex justify-content-center mypage-box">
+
+                <div class="mypage-box-container d-flex">
+                    <div th:replace="mypage/mypage_nav :: mypagenav"></div>
+                    <div class="custom-block d-flex flex-column align-items-start text-left p-4">
+
+                        <div class="text-center mb-5 pb-2 w-100">
+                            <h3 class="text-white">매칭 내역</h3>
+                            <hr class="mypage-line">
+                        </div>
+
+                        <div class="custom-block-info w-100">
+                            <div class="matching-anounce mb-4">
+                                <p>최근 10건까지만 표시됩니다. </p>
+                            </div>
+
+                            <div class="transaction-section mb-5">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>매칭 생성일</th>
+                                        <th>상대방 이름</th>
+                                        <th>매칭 상태</th>
+                                        <th>채팅 종료 여부</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="match : ${matchingHistory}">
+                                        <td>
+                                            <span th:text="${#dates.format(match.matchingIndate, 'yyyy-MM-dd')}"></span>
+                                            <span th:if="${match.matchingUserNo != userId}" th:text="'(받은)'" style="color: blue;"></span>
+                                            <span th:if="${match.matchingUserNo == userId}" th:text="'(보낸)'" style="color: red;"></span>
+                                        </td>
+                                        <td th:text="${match.partnerName}"></td>
+                                        <td>
+                                            <span id="match-state-[[${match.matchingNo}]]"
+                                                  th:text="${match.matchingState == 'Y' ? '진행중' :
+                                                           (match.matchingState == 'N' ? '거절됨' :
+                                                           (match.matchingState == 'E' ? '종료됨' : '대기중'))}"
+                                                  th:classappend="${match.matchingState == 'Y' ? 'text-success' :
+                                                                  (match.matchingState == 'N' ? 'text-danger' :
+                                                                  (match.matchingState == 'E' ? 'text-muted' : 'text-warning'))}"></span>
+                                            <div id="match-actions-[[${match.matchingNo}]]"
+                                                 th:if="${match.matchingState == 'W'} and ${match.matchedUserNo == userId}"
+                                                 style="display:inline-block;">
+                                                <button th:onclick="'acceptMatch(' + ${match.matchingNo} + ')'"
+                                                        style="margin-left: 10px; background-color: blue; border: none; border-radius: 8px; color: white; padding: 2px 5px; cursor: pointer;">
+                                                    수락
+                                                </button>
+                                                <button th:onclick="'rejectMatch(' + ${match.matchingNo} + ')'"
+                                                        style="margin-left: 5px; background-color: red; border: none; border-radius: 8px; color: white; padding: 2px 5px; cursor: pointer;">
+                                                    거절
+                                                </button>
+                                            </div>
+
+
+                                        </td>
+                                        <td th:text="${match.matchingChattingState == 'Y' ? 'Y' : 'N'}" th:classappend="${match.matchingChattingState == 'Y' ? 'text-success' : 'text-danger'}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<script th:src="@{/js/mypage/mypage.js}"></script>
+
+</body>
+</html>

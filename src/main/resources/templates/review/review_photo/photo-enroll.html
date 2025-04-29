@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/review/review.css}">
+<link rel="stylesheet" th:href="@{/css/review/bootedited.min.css}">
+<body>
+
+<main>
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+
+    <section class="hero-section d-flex align-items-center">
+        <div class="container d-flex justify-content-center">
+            <div class="row d-flex justify-content-center ">
+                <div class="ptreview-detailbox">
+                    <h3 class="text-primary-color">리뷰 등록</h3>
+
+                    <section class="ptreview-info">
+                        <div>
+                            <div class="profile-info-ct">
+                                <span class="sound-only">작성자</span>
+                                <strong th:text="${review.reviewerNickname}"></strong>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <form action="/review/submit" enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="userId" th:value="${review.reviewerUserId}"/> <!-- Hidden 필드로 userId 설정 -->
+                        <input type="hidden" name="reviewerNickname" th:value="${review.reviewerNickname}"/> <!-- Hidden 필드로 닉네임 설정 -->
+                        <section>
+                            <div class="form-group">
+                                <label class="text-primary-color" for="review-title">글 제목</label>
+                                <input class="form-control" id="review-title" name="title" required type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary-color" for="summernote">내용</label>
+                                <div class="post-form">
+                                    <textarea id="summernote" name="content" required></textarea>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="button-container">
+                            <button class="btn-action color-pri" type="submit">등록하기</button>
+                            <button class="btn-action" th:onclick="location.href='/review/photomain'" type="button">목록으로</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<!-- 필요한 JS 파일들 -->
+<script th:src="@{/js/reference_js/jquery.min.js}"></script>
+<script th:src="@{/js/review/photo-review.js}"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<!-- Summernote 설정 -->
+<script>
+    $('#summernote').summernote({
+        height: 400,
+        lang: 'ko-KR',
+        toolbar: [
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['color', ['color']],
+            ['table', ['table']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert',['picture']]
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72','96'],
+        focus : true,
+        callbacks : {
+            onImageUpload : function(files) {
+                for (var i = 0; i < files.length; i++) {
+                    imageUploader(files[i], this);
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

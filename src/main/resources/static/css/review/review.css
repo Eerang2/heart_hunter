@@ -1,0 +1,594 @@
+/* 포토리뷰 리스트 */
+.ptlist {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.ptlist li {
+    width: 49%;
+    background-color: #fff;
+    margin-bottom: 15px;
+    list-style: none;
+}
+.ptlist li a {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    height: 112px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.ptlist li a div {
+    margin-left: 15px;
+    flex-grow: 1;
+}
+/* 썸네일 */
+.list-thumb {
+    display: block;
+    width: 72px;
+    height: 72px;
+    border-radius: 5px;
+	overflow: hidden;
+	margin-bottom : 0px;
+}
+.list-thumb img {
+    width: 100%;
+	height: 100%;
+}
+.ptlist .b-info {
+    padding-top: 0;
+    color: #757575;
+    font-size: 13px;
+}
+.pt-title {
+    width: 240px;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 500;
+    color: #222222;
+}
+.pt-info {
+    font-size: 13px;
+    color: #757575;
+    margin-top: 10px;
+}
+
+.icon-users {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: left;
+    margin-top: 1px;
+    margin-right: 5px;
+    background: url(/image/mypage/icon_users.png) no-repeat 0 0;
+    background-size: contain;
+}
+
+/* 버튼스타일 */
+.btn-action {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border:none;
+    background-color: #f9f9f9;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.btn-action:hover {
+    background-color: var(--primary-color);
+    border-color: #ccc;
+    color: var(--white-color);
+}
+
+.pagination {
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;;
+    margin-top: 20px;
+    border: none;
+    position:inherit;
+}
+
+.review-line{
+    color : var(--custom-logo-pink);
+    border-top: 2px solid !important;
+    opacity: 0.15 !important;
+    margin: 2rem 0 !important;
+}
+
+
+/* 포토리뷰 디테일 */
+
+.ptreview-detailbox {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    min-width:980px;
+    background-color: rgba(249, 249, 249, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.view-image{
+display : block;
+width:600px;
+}
+
+.text-primary-color{
+    color: var(--primary-color);
+}
+
+.ptreview-info {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.profile-info-ct {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ptreview-img {
+    text-align: center;
+    margin: 20px 0;
+    display:flex;
+}
+
+.ptreview-con {
+    margin-top: 20px;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+.sound-only {
+    display: inline-block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0;
+    line-height: 0;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+
+.button-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+}
+
+.button-container .btn-action {
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #f1f1f1;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-container .btn-action:hover {
+    background-color: #4CAF50;
+    color: white;
+
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.color-pri:hover{
+background-color: var(--primary-color) !important;
+}
+
+.color-sec:hover{
+background-color: var(--secondary-color) !important;
+}
+
+
+/* 라이브리뷰 페이지 스타일 */
+
+/* 실시간 리뷰 섹션 스타일 */
+.review-section {
+    margin-bottom: 40px;
+}
+
+.text-primary-color {
+    color: var(--primary-color);
+}
+
+.live-review-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width:1200px;
+}
+
+.live-review-item {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.live-review-item h6 {
+    font-size: 1.4rem !important;
+}
+
+.live-review-item p {
+    font-size: 1rem !important;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 200px;
+    font-weight: normal;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    color: gold;
+    padding-left: 20px;
+}
+
+.more-icon-image {
+    width: 28px;
+    height: 28px;
+    position: relative;
+}
+
+.more-icon-image:hover{
+    opacity: 0.45;
+}
+
+
+/* 드롭다운 컨테이너 */
+.dropdown-more {
+    position: relative;
+    display: inline-block;
+}
+
+/* 더보기 버튼 아이콘 */
+.more-icon {
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* 드롭다운 콘텐츠 */
+.more-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 8%);
+    z-index: 1;
+    border-radius: 5px;
+    right: 15%;
+}
+
+/* 드롭다운 항목 */
+.more-ele {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+}
+
+.more-ele:last-child {
+    border-bottom: none;
+}
+
+.more-ele:hover {
+    background-color: #f1f1f1;
+}
+
+.feed-icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.more-icon{
+    padding: 8px 0;
+    margin-right: 0;
+    position: relative;
+    right: -10%;
+}
+
+
+/* 드롭다운 애니메이션 */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+.more-dropdown-content.show {
+    display: block;
+    animation: slideDown 0.3s forwards;
+}
+
+.more-dropdown-content.hide {
+    display: block;
+    animation: slideUp 0.3s forwards;
+}
+
+.live-review-item .feed-icons {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.live-review-item:hover .feed-icons {
+    opacity: 1;
+}
+
+.review-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.review-input-row {
+font-size:1.4rem;
+}
+
+.right-side-elements {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.review-input-row select {
+    margin-right: 20px;
+    font-size: 1.2rem;
+    color: gold;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+
+.review-input-row .review-button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: var(--white-color);
+    font-size:1rem;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.review-input-row .review-button:hover{
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+.review-textarea textarea {
+    width: calc(100% - 100px);
+    margin-left:50px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    resize:none;
+}
+
+.review-divider {
+    color: var(--custom-logo-pink);
+    border-top: 2px solid !important;
+    opacity: 0.15 !important;
+    margin: 2rem 0 !important;
+    margin-top:0px !important;
+}
+
+.review-info p{
+padding-left : 50px;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    border: none;
+}
+
+.btn-action {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.btn-action:hover {
+    background-color: var(--secondary-color);
+    border-color: #ccc;
+    color: var(--white-color);
+}
+
+.modal-backdrop{
+z-index:-1 !important;
+}
+
+.panel-heading{
+background-color: #f5f5f5;
+border: 1px solid #ddd;
+}
+
+
+.note-editable{
+background-color:var(--white-color);
+border:1px solid #ddd;
+}
+
+.note-editable p {
+font-size:16px ;
+font-weight:normal;
+}
+
+.tooltip{
+display:none !important;
+}
+
+.note-form-label{
+display:block;
+}
+
+.note-icon-caret:before{
+display:none;}
+
+
+.content p, .content span {
+    font-size: 16px;
+}
+
+
+#summernote {
+    font-size: inherit !important;
+    line-height: inherit !important;
+    margin: inherit !important;
+    padding: inherit !important;
+}
+
+.live-review-item{
+margin-bottom:10px;
+}
+
+.live-review-delete-button{
+background:none;
+border:none;
+padding:0;
+color:inherit;
+cursor:pointer;
+
+}
+
+.pagination .btn-action.active {
+        background-color: var(--primary-color) !important; /* 활성화된 페이지의 배경색 */
+        color: white !important; /* 활성화된 페이지의 글자색 */
+        font-weight: bold !important; /* 활성화된 페이지의 글자 두께 */
+        border: 1px solid var(--primary-color) !important; /* 활성화된 페이지의 테두리 */
+        pointer-events: none !important; /* 활성화된 페이지의 클릭 방지 */
+}
+
+/* 신고 팝업 스타일 */
+.report-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.report-popup {
+    width: 450px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    position: relative;
+}
+
+.report-popup h2 {
+    margin: 12px;
+    font-size: 30px;
+    text-align: left;
+}
+
+.report-action-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.report-action-box ul {
+    padding: 0;
+    margin: 10px 0;
+}
+
+.report-action-box p {
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+
+.report-action-box textarea {
+    width: 100%;
+    height: 180px;
+    margin: 20px 0;
+    resize: none;
+}
+
+.report-action-box button {
+    padding: 7px 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: #e9899e;
+    color: #fff;
+    margin-right: 5px;
+}
+
+.select-category {
+    border-radius: 10px;
+    padding: 5px 9px;
+    font-size: 15px;
+    position: relative;
+    color: #4e4f50;
+    margin-top: 20px;
+}

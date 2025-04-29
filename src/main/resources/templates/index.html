@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+<link rel="stylesheet" th:href="@{/css/mypage/popup.css}">
+<main>
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="text-center mb-5 pb-2">
+                        <h1 class="text-white">새로운 인연을 찾아서</h1>
+
+                        <p class="text-white">클릭 한 번으로 만난 새로운 인연</p>
+
+                        <a th:href="@{/matching/mbti}" class="btn custom-btn smoothscroll mt-3 matching-btn">매칭 시작</a>
+                    </div>
+
+                    <div class="owl-carousel owl-theme" >
+                        <div class="owl-carousel-info-wrap item"
+                             style="cursor: pointer"
+                             th:each="review : ${ReviewTop5}"
+                             th:attr="onclick='window.location.href=&quot;/review/photodetail?reviewNo=' + ${review.reviewNo} + '&quot;'">
+                            <img th:src="${review.firstImageUrl}"
+                                 class="owl-carousel-image img-fluid" alt="">
+
+                            <div class="owl-carousel-info">
+                                <h4 class="mb-2" th:text="${review.reviewTitle}">
+                                </h4>
+                                <p style="margin: 0">Photo Review</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="latest-podcast-section section-padding pb-0" id="section_2">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-12 col-12">
+                    <div class="section-title-wrap mb-5">
+                        <h4 class="section-title">Feeds</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0" th:each="feed : ${FeedTop}">
+                    <div class="custom-block d-flex" th:onclick="'location.href=\'/feed\''">
+                        <div class="custom-block-info">
+                            <div class="mt-2">
+                                #&nbsp;
+                                <span th:text="${feed.feedTag != null ? feed.feedTag : 'add'}"></span>
+                            </div>
+                            <h6 class="mb-2 feed-title" th:text="${feed.feedTitle != null ? feed.feedTitle : 'Feed'}"></h6>
+                            <p class="mb-0 main-feed-content" th:text="${feed.feedContent != null ? feed.feedContent : 'feed...'}"></p>
+
+                            <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                <p class="bi-heart me-1">
+                                    <span th:text="${feed.likeCount != null ? feed.likeCount : '0'}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="topics-section section-padding pb-0" id="section_3">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-12">
+                    <div class="section-title-wrap mb-5">
+                        <h4 class="section-title">TEST</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-12 mbti-flex">
+                    <button class="mbti-main-btn custom-btn btn" onclick="window.location.href='/matching/mbti-test'">
+                        <h4 style="color:#fff">MBTI 테스트 하러가기</h4>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="trending-podcast-section section-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-12">
+                    <div class="section-title-wrap mb-5">
+                        <h4 class="section-title">최고 인기 프로필</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0" th:each="user : ${UserTop}">
+                    <div class="custom-block custom-block-full liked-prof-item" th:data-liked-user-no="${user.userNumber}">
+                        <div class="custom-block-image-wrap">
+                                <img th:src="${user.userPhotoPath}" class="custom-block-image img-fluid"
+                                     alt="">
+                        </div>
+
+                        <div class="custom-block-info">
+                            <div class="custom-profile-box">
+                                <h5 class="mb-2" th:text="${user.nickname}"></h5>
+                                <span class="mb-0" th:text="${user.gender == 'F' ? '여성' : '남성'}"></span>
+                            </div>
+                            <p class="mb-0">
+                                취미<br>
+                                <small th:text="${user.hobbyName}" class="custom-main-p"></small>
+                            </p>
+                            <p class="mb-0">
+                                Like<br>
+                                <small th:text="${user.personalLike}" class="custom-main-p"></small>
+                            </p>
+                            <p class="mb-0">
+                                Hate<br>
+                                <small th:text="${user.personalHate}" class="custom-main-p"></small>
+                            </p>
+                            <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                <p class="bi-heart me-1">
+                                    <span th:text="${user.likeCnt}">2.5k</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 프로필 팝업 구조 -->
+        <div id="profile-popup" class="popup">
+            <div class="popup-content">
+                <span class="close-popup">&times;</span>
+                <!-- 여기서 프로필 데이터를 동적으로 로드합니다 -->
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 새로 추가된 프로필 항목에 대해 팝업 이벤트 리스너를 다시 설정
+        // 프로필 좋아요 기능 초기화
+        ProfileLikeModule.initializeProfileLikeFeature();
+        // 프로필 팝업 기능 초기화
+        ProfilePopupModule.initializeProfileItemPopup();
+        //프로필 팝업 닫기
+        ProfilePopupModule.initializeProfilePopupClose();
+    });
+</script>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

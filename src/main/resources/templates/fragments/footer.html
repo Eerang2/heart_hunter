@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <footer th:fragment="footer" class="site-footer">
+        <div class="container site-footer">
+            <div class="footer_head">
+                <div class="site-footer-info">
+                    <a class="navbar-brand me-lg-5 me-0" href="/">
+                        <img th:src="@{/image/heartLinkLogo.png}" class="logo-image img-fluid" alt="Site logo">
+                        <p class="logo-text">HEARTLINK</p>
+                    </a>
+                    <ul class="site-footer-links">
+                        <li><a class="site-footer-link" href="#">이용약관</a></li>
+                        <li><a class="site-footer-link" href="#">개인정보처리방침</a></li>
+                        <li><a class="site-footer-link" th:href="@{/about}">회사소개</a></li>
+                        <li><a class="site-footer-link" href="#">이용안내</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer-contacts">
+                    <div class="copybox">
+                        <p class="copy">상호명: 하트링크</p>
+                        <p>회사명: HeartLink</p>
+                        <p>대표: - - - </p>
+                        <p class="copy">주소: 사랑특별시 고백구 행복로 777 로맨스스퀘어 15층 1501호</p>
+                    </div>
+
+                    <ul class="footer-social-box">
+                        <p></i> E-MAIL: re_coder@green.com</p>
+                        <div class="col-md-6 col-12">
+
+                            <h6 class="site-footer-title mb-3">Social</h6>
+
+                            <ul class="social-icon">
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-instagram"></a>
+                                </li>
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link ">
+                                        <img class="social-icon-image" th:src="@{/image/icon_kakao.png}"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link ">
+                                        <img class="social-icon-image" th:src="@{/image/icon_share.png}"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <hr class="footer-line">
+                <p class="bottom-content">당신의 인연을 찾기 위한 1:1 소개팅 전문 서비스</p>
+            </div>
+        </div>
+        <div th:replace="~{fragments/chatbot :: chatbot}"></div>
+
+    <script th:replace="~{fragments/script::script}"></script>
+    </footer>
+</html>
+

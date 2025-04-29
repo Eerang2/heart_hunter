@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/feed/feed_main.css}">
+<nav th:replace="fragments/navigation :: navigation"></nav>
+<section class="feed-sec">
+    <div id="reportOverlay" class="report-overlay">
+        <div class="report-popup">
+            <h2>신고하기</h2>
+            <form id="reportForm" action="/report/request" method="POST" class="report-action-box">
+                <div>
+                    <ul>
+                        <li>
+                            <p>신고 유형 : <span>Feed</span></p>
+                        </li>
+                        <li>
+                            <p>신고 대상 : <spen id="reportedUser"></spen></p>
+                            <input type="hidden" id="reportedUserNo" name="reportedUserNo">
+                            <input type="hidden" id="feedNo" name="reportTypeNo">
+                            <input type="hidden" name="reportType" value="Feed">
+                        </li>
+                    </ul>
+                </div>
+                <select class="select-category" name="reportCategoryNo">
+                    <option disabled selected>==신고 카테고리 선택==</option>
+                    <option th:each="category : ${reportCategory}"
+                            th:value="${category.reportCategoryNo}"
+                            th:text="${category.reportCategoryName}"></option>
+                </select>
+                <textarea placeholder="상세 사유를 작성해 주세요." name="reportContent"></textarea>
+                <div class="action-btns">
+                    <button type="submit" id="actionComplate" class="action-complate">완료</button>
+                    <button type="button" id="actionCloses" class="action-close">닫기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container feed-box">
+        <div class="feed-side-bar">
+            <form action="#" method="get" id="filterForm">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="filter" id="exampleRadios1" value="전체" th:checked="${filter == '전체'}" data-th-checked="전체"/>
+                    <label class="form-check-label" for="exampleRadios1">
+                        <p class="radio-text">전체</p>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="filter" id="exampleRadios2" value="매칭 후기" th:checked="${filter == '매칭 후기'}">
+                    <label class="form-check-label" for="exampleRadios2">
+                        <p class="radio-text"># 매칭 후기</p>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="filter" id="exampleRadios3" value="연애 조언" th:checked="${filter == '연애 조언'}">
+                    <label class="form-check-label" for="exampleRadios3">
+                        <p class="radio-text"># 연애 조언</p>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="filter" id="exampleRadios4" value="자유 보드" th:checked="${filter == '자유 보드'}">
+                    <label class="form-check-label" for="exampleRadios4">
+                        <p class="radio-text"># 자유 보드</p>
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="feed-main-box" id="feed-main-box">
+            <div class="new-feed-box">
+                <select class="choses-array" name="feedArray" id="feed-array" >
+                    <option value="작성일" th:selected="${feedArray == '작성일'}">작성일</option>
+                    <option value="좋아요 수" th:selected="${feedArray == '좋아요 수'}">좋아요 수</option>
+                </select>
+                <button class="new-feed-btn" onclick="location.href='/feed/write'" sec:authorize="isAuthenticated()">New Feed</button>
+            </div>
+            <div class="feed-ele" th:each="feed : ${feedList}">
+                <div class="feed-out-box">
+                    <div class="feed-head-box">
+                        <div class="feed-title-box">
+                            <p class="feed-title" th:text="${feed.feedTitle}"></p>
+                            <input type="hidden" id="feedNo" th:value="${feed.feedNo}">
+                            <div class="feed-icons" th:if="${thisUserNo != 0}">
+                                <a class="badge ms-auto feed-heart-cancel"
+                                   id="like-heart"
+                                   th:each="user : ${feed.LikedUser}"
+                                   th:if="${user == thisUserNo}"
+                                   onclick="feedLikeCancelBtn(this)">
+                                    <i class="bi-heart feed-heart-icon"></i>
+                                </a>
+                                <a class="badge ms-auto feed-heart"
+                                   id="like-heart"
+                                   th:if="${#lists.size(feed.LikedUser) == 0 or !feed.LikedUser.contains(thisUserNo)}"
+                                   onclick="feedLikeBtn(this)">
+                                    <i class="bi-heart feed-heart-icon"></i>
+                                </a>
+
+                                <div class="dropdown-more">
+                                    <a class="more-drop-btn more-icon">
+                                        <img class="more-icon-image" th:src="@{/image/icon_more.png}" alt="More"/>
+                                    </a>
+                                    <div class="more-dropdown-content">
+                                        <input type="hidden" th:value="${feed.feedNo}">
+                                        <div class="more-ele" id="reportBtn" th:if="${thisUserNo != feed.authorUserNo}">신고하기</div>
+                                        <div class="more-ele" th:if="${thisUserNo == feed.authorUserNo}" onclick="deleteFeed(this)">삭제</div>
+                                        <div class="more-ele" th:if="${thisUserNo == feed.authorUserNo}" th:attr="onclick='location.href=\'feed/modify?feedNo='+${feed.feedNo}+'\''">수정</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feed-icon-box">
+                            <p class="feed-nickname" th:text="${feed.basicUserNickname}"></p>
+                            <p class="feed-like-cnt bi-heart">
+                                <span th:text="${feed.likeCount}"></span>
+                            </p>
+                            <input type="hidden" id="userNo" th:value="${feed.authorUserNo}">
+                        </div>
+                        <div class="feed-remark">
+                            <p class="feed-indate"  th:if="${feed.feedTag != 'none' }" th:text="${feed.feedTag}"></p>
+                            <p class="feed-indate"  th:unless="${feed.feedTag != 'none' }"></p>
+                            <p class="feed-indate" th:text="${feed.feedIndate}"></p>
+                        </div>
+                    </div>
+                    <div class="feed-content-box">
+                            <span class="feed-content" th:utext="${feed.feedContent}">
+                            </span>
+                    </div>
+                </div>
+                <div class="reply-list-submit-box" id="reply-list-submit-box">
+                    <div class="feed-reply-box" >
+                    <input type="hidden" value="${feed.feedNo}">
+                        <div class="feed-reply-main" th:each="comment : ${feed.comments}">
+                            <div class="feed-reply-ele">
+                                <div class="reply-profile-box">
+                                    <input type="hidden" th:value="${comment.commentNo}">
+                                    <p class="reply-nickname" th:text="${comment.commentUserNickname}"></p>
+                                    <p class="reply-indate" th:text="${comment.commentIndate}"></p>
+                                    <a class="bi-x reply-delete" th:if="${comment.commentUserNo == thisUserNo && thisUserNo != 0}" onclick="deleteReply(this)"></a>
+                                </div>
+                                <div class="reply-content-box">
+                                    <span class="reply-content"th:text="${comment.commentContent}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-reply-box">
+                        <div class="answer-text-box">
+                            <input type="hidden" th:value="${thisUserNo}" class="this-user-no">
+                            <textarea class="answer-text"  th:if="${thisUserNo != 0}" id="comment-textarea" placeholder="댓글을 입력해주세요."></textarea>
+                            <button class="answer-submit"  th:if="${thisUserNo != 0}" id="comment-submit-btn">등록</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script th:src="@{/js/feed/feed-common.js}"></script>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

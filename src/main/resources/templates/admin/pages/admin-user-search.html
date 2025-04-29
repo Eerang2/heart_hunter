@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/admin-head :: admin_head}"></head>
+<body>
+
+<div class="loader-bg">
+    <div class="loader-track">
+        <div class="loader-fill"></div>
+    </div>
+</div>
+
+<!--사이드 바-->
+<nav th:replace="~{admin/fragments/sidebar-menu :: sidebar_menu}"></nav>
+
+<!-- nav 헤더 start -->
+<header th:replace="~{admin/fragments/admin-header :: admin_header}"></header>
+
+<div class="pc-container">
+    <div class="pc-content">
+        <div class="page-header">
+            <div class="page-header-title">
+                <h5 class="m-b-10">사용자 검색</h5>
+            </div>
+            <div th:action="@{/admin/user/search}" method="GET" class="user-select-box">
+                <div class="user-select-filter">
+                    <select class="choses-tag" name="filter" id="userFilter">
+                        <option value="none" disabled selected>회원 상태</option>
+                        <option value="ALL" th:selected="${filter == 'ALL'}">ALL</option>
+                        <option value="Active" th:selected="${filter == 'Active'}">Active</option>
+                        <option value="Dormant" th:selected="${filter == 'Dormant'}">Dormant</option>
+                        <option value="Ban" th:selected="${filter == 'Ban'}">Ban</option>
+                        <option value="Deleted" th:selected="${filter == 'Deleted'}">Deleted</option>
+                    </select>
+                </div>
+                <form id="searchForm" class="navbar navbar-light admin-user-search">
+                    <select class="user-search-select" id="inputGroupSelect02" name="category">
+                        <option value="user_id" selected>ID 이메일</option>
+                        <option value="user_num">회원 번호</option>
+                    </select>
+                    <input type="text" class="user-search-control" name="search"
+                           aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary user-search-btn" type="submit" id="button-addon2">검색</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row custom-admin-board">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="admin-management-table">
+                            <thead>
+                                <tr>
+                                    <td>회원 번호</td> <td>ID 이메일</td> <td>닉네임</td> <td>전화번호</td> <td>생년월일</td> <td>성별</td> <td>생성일</td> <td>회원 상태</td> <td>마지막 로그인</td> <td>보유 코인</td><td>위치정보 동의</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="user : ${userList}">
+                                    <td th:text="${user.basicUserNo}"></td> <td th:text="${user.basicUserEmail}">example@gmail.com</td>
+                                    <td th:text="${user.basicUserNickname}"></td>
+                                    <td th:text="${user.basicUserTelnum}">010-1234-5678</td> <td th:text="${user.basicUserBirthdate}">2000.08.25</td>
+                                    <td th:text="${user.basicUserSex}">여</td> <td th:text="${user.basicUserIndate}">2024.06.13</td>
+                                    <td th:text="${user.basicUserStatus}">Active</td> <td th:text="${user.lastLoginDate}">2024.07.31</td>
+                                    <td th:text="${user.basicUserCoin}">12개</td><td th:text="${user.consentLocationInfo}">Y</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav class="custom-navigation" aria-label="Page navigation example">
+                            <div th:replace="~{fragments/pagination :: pagination}"></div>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/admin/filter-search.js}"/>
+<script th:replace="~{admin/fragments/admin-script::admin_script}"></script>
+</body>
+</html>

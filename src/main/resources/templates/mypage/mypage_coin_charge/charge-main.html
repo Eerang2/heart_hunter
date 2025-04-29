@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/charge/charge_main.css}"/>
+<link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+<nav th:replace="~{fragments/navigation :: navigation}"></nav>
+<section class="charge-main-sec">
+    <div class="container charge-out-box">
+    <div th:replace="mypage/mypage_nav :: mypagenav"></div>
+        <div class="charge-shop-box">
+            <div class="charge-my-tabs">
+                <a class="charge-tab-ico" th:href="@{/charge/shop}"> 코인 충전</a>
+                <a class="charge-tab-ico not-choice" th:href="@{/charge/history}">충전 내역</a>
+            </div>
+            <div class="coin-shop-area">
+                <input type="hidden" th:value="${userEmail}" id="mypage-user-email">
+                <input type="hidden" th:value="${userName}" id="mypage-user-name">
+                <input type="hidden" th:value="${userTelnum}" id="mypage-user-telnum">
+                <div class="coin-shop-info">
+                    <strong>코인이란?</strong> 1대1 매칭을 위해 필요한 전용 결제수단입니다.
+                </div>
+                <div class="coin-shop-box">
+                    <div class="coin-package-title">
+                        <p>코인 패키지</p>
+                    </div>
+                    <div class="coin-package-box">
+                        <div class="coin-package-column">
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 10개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="10">1,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 30개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="30">3,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 50개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="50">5,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 70개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="70">7,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 100개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="100">10,000원</a>
+                            </div>
+                        </div>
+                        <div class="coin-package-column">
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 200개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="200">20,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 300개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="30000">30,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 500개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="500">50,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 700개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="700">70,000원</a>
+                            </div>
+                            <div class="coin-package-sell">
+                                <div class="coin-package-item">
+                                    <img th:src="@{/image/coin_icon.png}" class="coin-icon">
+                                    <p>코인 1000개</p>
+                                </div>
+                                <a class="coin-package-price" name="coin-price" data-value="1000">100,000원</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<script th:src="@{/js/mypage/charge/charge-request.js}"></script>
+</body>

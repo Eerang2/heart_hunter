@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body class="about-body">
+<section class="about-section section-padding">
+    <div class="container about-container">
+        <div class="about-title-box">
+            <h4 class="about-title">Team Introduction</h4>
+        </div>
+        <div class="about-logo-box">
+            <div th:replace="fragments/teamlogo::teamlogo"></div>
+            <div><a th:href="@{/}" class="about-back-home">HEARTLINK</a></div>
+        </div>
+        <hr class="about-hr">
+        <div class="row about-member-box">
+            <!-- Team Member 1 -->
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="team-thumb bg-white shadow-lg">
+                    <img th:src="@{/image/team_member/team_member_jaein.jpg}" class="about-image img-fluid" alt="">
+                    <div class="team-info">
+                        <h4 class="mb-2">Jaein</h4>
+                        <div class="member-part">
+                            <span class="about-badge">ERD</span>
+                            <span class="about-badge">UI/UX</span>
+                            <span class="about-badge">Front</span>
+                            <span class="about-badge">Backend</span>
+                        </div>
+                    </div>
+                    <div class="social-share member-social-box">
+                        <ul class="social-icon member-social-icon">
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://github.com/popya-02" class="social-icon-color social-icon-link bi-github"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://www.instagram.com/jaen_l22/" class="social-icon-color social-icon-link bi-instagram"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://velog.io/@cookie_01/posts" class="social-icon-color social-icon-link bi-chat-dots"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="team-thumb bg-white shadow-lg">
+                    <img th:src="@{/image/team_member/team_member_eunsik.jpg}" class="about-image img-fluid" alt="">
+                    <div class="team-info">
+                        <h4 class="mb-2">Eunsik</h4>
+                        <div class="member-part">
+                            <span class="about-badge">Leader</span>
+                            <span class="about-badge">UI/UX</span>
+                            <span class="about-badge">Front</span>
+                            <span class="about-badge">Backend</span>
+                        </div>
+                    </div>
+                    <div class="social-share member-social-box">
+                        <ul class="social-icon member-social-icon">
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://github.com/S1K1DA" class="social-icon-color social-icon-link bi-github"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://www.instagram.com/eunsik_" class="social-icon-color social-icon-link bi-instagram"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://cloudy-baroness-b4c.notion.site/SIKI-c7ee0c5540c3488daa183d52c3374f6b" class="social-icon-color social-icon-link bi-chat-dots"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="team-thumb bg-white shadow-lg">
+                    <img th:src="@{/image/team_member/team_member_ahtae.jpg}" class="about-image img-fluid" alt="">
+                    <div class="team-info">
+                        <h4 class="mb-2">Ahtae</h4>
+                        <div class="member-part">
+                            <span class="about-badge">UI/UX</span>
+                            <span class="about-badge">Front</span>
+                            <span class="about-badge">Backend</span>
+                        </div>
+                    </div>
+                    <div class="social-share member-social-box">
+                        <ul class="social-icon member-social-icon">
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://github.com/PurPleChEEzE" class="social-icon-color social-icon-link bi-github"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://www.instagram.com/ahtae_o/" class="social-icon-color social-icon-link bi-instagram"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="https://cheeze1010.tistory.com/" class="social-icon-color social-icon-link bi-chat-dots"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="team-thumb bg-white shadow-lg">
+                    <img th:src="@{/image/team_member/team_member_jongsun.jpg}" class="about-image img-fluid" alt="">
+                    <div class="team-info">
+                        <h4 class="mb-2"> Jongsun</h4>
+                        <div class="member-part">
+                            <span class="about-badge">Persona</span>
+                            <span class="about-badge">Planning</span>
+                        </div>
+                    </div>
+                    <div class="social-share member-social-box">
+                        <ul class="social-icon member-social-icon">
+                            <li class="social-icon-item member-social-item">
+                                <a href="#" class="social-icon-color social-icon-link bi-github"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="#" class="social-icon-color social-icon-link bi-instagram"></a>
+                            </li>
+                            <li class="social-icon-item member-social-item">
+                                <a href="#" class="social-icon-color social-icon-link bi-chat-dots"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

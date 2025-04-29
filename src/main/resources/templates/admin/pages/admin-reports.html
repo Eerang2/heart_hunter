@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/admin-head :: admin_head}"></head>
+<body>
+
+<div class="loader-bg">
+    <div class="loader-track">
+        <div class="loader-fill"></div>
+    </div>
+</div>
+
+<!--사이드 바-->
+<nav th:replace="~{admin/fragments/sidebar-menu :: sidebar_menu}"></nav>
+
+<!-- nav 헤더 start -->
+<header th:replace="~{admin/fragments/admin-header :: admin_header}"></header>
+
+<div class="pc-container">
+    <div class="pc-content">
+        <div class="page-header">
+            <h5 class="m-b-10">신고 처리 및 조치</h5>
+            <form action="/admin/reports" method="GET" class="date-container">
+                <div class="start-date-box">
+                    <label for="start-date">시작 날짜:</label>
+                    <input type="date" id="start-date" name="startDate" th:value="${startDate}">
+                </div>
+                <div class="end-date-box">
+                    <label for="end-date">종료 날짜:</label>
+                    <input type="date" id="end-date" name="endDate" th:value="${endDate}">
+                </div>
+                <button type="submit">적용</button>
+            </form>
+        </div>
+
+        <div class="row custom-admin-board">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="admin-action-table">
+                            <thead>
+                            <tr>
+                                <th class="report-num">신고 번호</th>
+                                <th class="user-num">피신고자<br> 번호</th>
+                                <th class="admin-num">관리자<br> 번호</th>
+                                <th class="report-date">접수일</th>
+                                <th class="report-category">신고 카테고리</th>
+                                <th class="report-response-date">처리일</th>
+                                <th class="report-reponse-result">확인 결과</th>
+                                <th class="report-reponse-result">처벌 결과</th>
+                                <th class="report-type">신고 유형</th>
+                                <th class="report-user-cnt">누적<br>처벌 수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="history : ${resolutionList}">
+                                <td th:text="${history.reportNo}"></td>
+                                <td th:text="${history.reportedUserNo}"></td>
+                                <td th:text="${history.adminUserNo}"></td>
+                                <td th:text="${history.reportIndate}"></td>
+                                <td th:text="${history.reportCategoryName}"></td>
+                                <td th:text="${history.reportResolutionDate}"></td>
+                                <td th:text="${history.reportResolutionContent}"></td>
+                                <td th:if="${history.reportRsolutionPunish == '영구정지'}"
+                                    th:text="${history.reportRsolutionPunish}"
+                                    style="color:red; font-weight: bold"></td>
+                                <td th:if="${history.reportRsolutionPunish == '해당없음'}"
+                                    th:text="${history.reportRsolutionPunish}"
+                                    style="color:blue;"></td>
+                                <td th:unless="${history.reportRsolutionPunish == '영구정지' or history.reportRsolutionPunish == '해당없음'}"
+                                    th:text="${'활동정지 ' + (history.reportRsolutionPunish) + '일'}"
+                                    style="color:red;"></td>
+                                <td th:text="${history.reportType}"></td>
+                                <td th:text="${history.accruePunishment}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav class="custom-navigation" aria-label="Page navigation example">
+                        <div th:replace="~{fragments/pagination :: pagination}"></div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 스크립트 모듈 -->
+<script th:replace="~{admin/fragments/admin-script::admin_script}"></script>
+</body>
+</html>
