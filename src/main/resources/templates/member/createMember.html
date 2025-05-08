@@ -353,8 +353,8 @@
       data: formData,
       contentType: false,
       processData: false,
-      success: function () {
-        alert('저장 성공');
+      success: function (response) {
+        window.location.href="/terms/agree/" + response
       },
       error: function (xhr) {
         alert('오류: ' + xhr.responseText);
