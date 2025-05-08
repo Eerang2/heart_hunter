@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>정보 입력</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Gowun Batang', serif;
+      background: #fff0f5;
+      color: #333;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #e91e63;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .input-group textarea {
+      height: 120px;
+    }
+
+    .interest-selector button {
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 0.8rem;
+      margin: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .interest-selector button.selected {
+      background-color: #e91e63;
+      color: white;
+    }
+
+    .interest-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .interest-list span {
+      background-color: #f5f5f5;
+      border-radius: 12px;
+      padding: 0.4rem 1rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-images {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .image-upload {
+      width: 120px;
+      height: 120px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-upload label {
+      position: relative;
+      z-index: 2;
+      font-size: 2rem;
+      color: #e91e63;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .image-upload input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 3;
+      cursor: pointer;
+    }
+
+    .image-upload img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      z-index: 1;
+    }
+
+    .submit-btn {
+      background-color: #e91e63;
+      color: white;
+      padding: 1rem;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.2rem;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #d81b60;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>회원 정보 입력</h1>
+  <form id="infoForm">
+    <div class="input-group">
+      <label for="name">이름</label>
+      <input type="text" th:value="${member.name}" id="name" placeholder="이름을 입력하세요" required>
+    </div>
+
+    <div class="input-group">
+      <label for="email">이메일</label>
+      <input type="email" id="email" th:value="${member.email}" readonly style="background-color:gainsboro">
+    </div>
+
+    <div class="input-group">
+      <label for="birthday">생일</label>
+      <input type="date" id="birthday" required>
+    </div>
+
+    <div class="input-group">
+      <label>성별
+        <span th:if="${member.gender == T(heart_link.application.member.enums.Gender).M}">
+          <input type="text" value="남성" readonly>
+          <input type="hidden" name="gender" value="M">
+        </span>
+        <span th:if="${member.gender == T(heart_link.application.member.enums.Gender).F}">
+          <input type="text" value="여성" readonly>
+          <input type="hidden" name="gender" value="F">
+        </span>
+      </label>
+    </div>
+
+    <div class="input-group">
+      <label for="looking-for">찾는 성별</label>
+      <select id="looking-for" required>
+        <option value="M" th:selected="${member.gender == T(heart_link.application.member.enums.Gender).F}">남성</option>
+        <option value="F" th:selected="${member.gender == T(heart_link.application.member.enums.Gender).M}">여성</option>
+        <option value="both">양성</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>관심사</label>
+      <button type="button" id="selectInterestsBtn">관심사 선택</button>
+      <div class="interest-list" id="interestList"></div>
+    </div>
+
+    <div class="input-group">
+      <label for="profile-images">프로필 이미지 (최대 3장)</label>
+      <div class="profile-images" id="profile-images">
+        <div class="image-upload">
+          <label for="image1">+</label>
+          <input type="file" id="image1" accept="image/*" onchange="handleImageUpload(event, 1)">
+        </div>
+        <div class="image-upload">
+          <label for="image2">+</label>
+          <input type="file" id="image2" accept="image/*" onchange="handleImageUpload(event, 2)">
+        </div>
+        <div class="image-upload">
+          <label for="image3">+</label>
+          <input type="file" id="image3" accept="image/*" onchange="handleImageUpload(event, 3)">
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">제출</button>
+  </form>
+</div>
+
+<!-- 관심사 팝업 -->
+<div id="interestModal" class="modal">
+  <div class="modal-content">
+    <h2>관심사 선택</h2>
+    <div class="interest-selector">
+      <button type="button" onclick="selectInterest('운동')">운동</button>
+      <button type="button" onclick="selectInterest('독서')">독서</button>
+      <button type="button" onclick="selectInterest('여행')">여행</button>
+      <button type="button" onclick="selectInterest('음악')">음악</button>
+      <button type="button" onclick="selectInterest('게임')">게임</button>
+      <button type="button" onclick="selectInterest('요리')">요리</button>
+      <button type="button" onclick="selectInterest('디지털 기술')">디지털 기술</button>
+      <button type="button" onclick="selectInterest('사진 촬영')">사진 촬영</button>
+      <button type="button" onclick="selectInterest('영화')">영화</button>
+      <button type="button" onclick="selectInterest('패션')">패션</button>
+      <button type="button" onclick="selectInterest('테크놀로지')">테크놀로지</button>
+      <button type="button" onclick="selectInterest('환경 보호')">환경 보호</button>
+    </div>
+    <button type="button" onclick="closeInterestModal()">닫기</button>
+  </div>
+</div>
+
+<script>
+  let selectedInterests = [];
+
+  function selectInterest(interest) {
+    const button = event.target;
+
+    if (selectedInterests.length < 6 || button.classList.contains('selected')) {
+      if (selectedInterests.includes(interest)) {
+        selectedInterests = selectedInterests.filter(item => item !== interest);
+        button.classList.remove('selected');
+      } else {
+        selectedInterests.push(interest);
+        button.classList.add('selected');
+      }
+    } else {
+      alert("관심사는 최대 6개까지 선택할 수 있습니다.");
+    }
+
+    updateInterestList();
+  }
+
+  function updateInterestList() {
+    const interestList = document.getElementById('interestList');
+    interestList.innerHTML = '';
+    selectedInterests.forEach(interest => {
+      const span = document.createElement('span');
+      span.textContent = interest;
+      interestList.appendChild(span);
+    });
+  }
+
+  document.getElementById('selectInterestsBtn').addEventListener('click', () => {
+    const buttons = document.querySelectorAll('.interest-selector button');
+    buttons.forEach(button => {
+      const interest = button.textContent;
+      button.classList.toggle('selected', selectedInterests.includes(interest));
+    });
+
+    document.getElementById('interestModal').style.display = 'flex';
+  });
+
+  function closeInterestModal() {
+    document.getElementById('interestModal').style.display = 'none';
+  }
+
+  function handleImageUpload(event, imageNumber) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const imageContainer = document.getElementById(`image${imageNumber}`).parentNode;
+
+      const oldImg = imageContainer.querySelector('img');
+      if (oldImg) imageContainer.removeChild(oldImg);
+
+      const imgElement = document.createElement('img');
+      imgElement.src = e.target.result;
+      imageContainer.appendChild(imgElement);
+    };
+
+    if (file) reader.readAsDataURL(file);
+  }
+
+  $('#infoForm').on('submit', function (e) {
+    e.preventDefault();
+
+    const dto = {
+      name: $('#name').val(),
+      email: $('#email').val(),
+      birthday: $('#birthday').val(),
+      gender: $('input[name="gender"]').val(),
+      lookingFor: $('#looking-for').val(),
+      interests: Array.from(selectedInterests)
+    };
+
+    const formData = new FormData();
+    formData.append('data', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
+
+    for (let i = 1; i <= 3; i++) {
+      const fileInput = document.getElementById('image' + i);
+      if (fileInput && fileInput.files.length > 0) {
+        formData.append('images', fileInput.files[0]);
+      }
+    }
+
+    $.ajax({
+      url: '/api/member/profile',
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        window.location.href="/terms/agree/" + response
+      },
+      error: function (xhr) {
+        alert('오류: ' + xhr.responseText);
+      }
+    });
+  });
+</script>
+</body>
+</html>
