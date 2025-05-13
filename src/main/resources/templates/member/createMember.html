@@ -326,7 +326,9 @@
   }
 
   $('#infoForm').on('submit', function (e) {
+
     e.preventDefault();
+    const agreements = JSON.parse(localStorage.getItem('agreements'));
 
     const dto = {
       name: $('#name').val(),
@@ -334,7 +336,8 @@
       birthday: $('#birthday').val(),
       gender: $('input[name="gender"]').val(),
       lookingFor: $('#looking-for').val(),
-      interests: Array.from(selectedInterests)
+      interests: Array.from(selectedInterests),
+      agreements: agreements,
     };
 
     const formData = new FormData();
@@ -354,7 +357,7 @@
       contentType: false,
       processData: false,
       success: function (response) {
-        window.location.href="/terms/agree/" + response
+        window.location.href="/main";
       },
       error: function (xhr) {
         alert('오류: ' + xhr.responseText);

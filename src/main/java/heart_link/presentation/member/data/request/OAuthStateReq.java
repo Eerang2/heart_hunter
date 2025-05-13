@@ -1,4 +1,4 @@
-package heart_link.member.data.request;
+package heart_link.presentation.member.data.request;
 
 import lombok.Getter;
 

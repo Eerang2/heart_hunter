@@ -29,17 +29,12 @@
                             <li><a class="dropdown-item" th:href="@{/matching-area/main}">위치 기반 매칭</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">리뷰</a>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/review/photomain}">포토 리뷰 </a>
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/review/livemain}">실시간 리뷰</a></li>
-                        </ul>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/feed}">커뮤니티</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/feed}">피드</a>
+                        <a class="nav-link" th:href="@{/feed}">채팅</a>
                     </li>
                     <!-- 채팅방 아이콘 추가 -->
                     <li class="nav-item">
@@ -48,7 +43,7 @@
                         </a>
                     </li>
                     <div class="ms-4 nav-my-btns">
-                        <div class="dropdown-bell" sec:authorize="isAuthenticated()">
+                        <div class="dropdown-bell" >
                             <button class="drop-btn nav-bell-icon">
                                 <span class="bi-bell bell-icon"></span>
                             </button>
@@ -60,7 +55,7 @@
                         <li sec:authorize="isAuthenticated()">
                             <a th:href="@{/member/logout}" class="btn logout-btn">로그아웃</a>
                         </li>
-                        <li sec:authorize="!isAuthenticated()">
+                        <li>
                             <a th:href="@{/member/sign}" class="btn custom-btn custom-border-btn">로그인</a>
                         </li>
                     </div>

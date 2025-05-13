@@ -23,6 +23,7 @@ public class TermsAgreementEntity {
     private Long id;
 
     // 약관 항목
+    @Enumerated(EnumType.STRING)
     private TermsType termsType;
 
     // 동의 여부

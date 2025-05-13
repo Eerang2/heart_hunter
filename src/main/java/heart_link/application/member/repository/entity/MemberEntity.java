@@ -1,7 +1,8 @@
 package heart_link.application.member.repository.entity;
 
 import heart_link.application.member.enums.Gender;
-import heart_link.member.data.request.MemberSignUpReq;
+import heart_link.application.member.enums.ProviderType;
+import heart_link.presentation.member.data.request.MemberSignUpReq;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,13 @@ public class MemberEntity {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
+
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private ProviderType providerType;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -37,6 +44,7 @@ public class MemberEntity {
         return MemberEntity.builder()
                 .name(req.getName())
                 .email(req.getEmail())
+                .password(req.getPassword())
                 .gender(req.getGender())
                 .lookingFor(req.getLookingFor())
                 .birth(req.getBirthday())
