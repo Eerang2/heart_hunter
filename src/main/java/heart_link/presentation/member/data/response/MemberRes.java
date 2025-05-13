@@ -1,6 +1,7 @@
 package heart_link.presentation.member.data.response;
 
 import heart_link.application.member.enums.Gender;
+import heart_link.application.member.repository.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,4 +18,5 @@ public class MemberRes {
     public static MemberRes of(String email, Gender gender, String name) {
         return new MemberRes(email, gender, name);
     }
+
 }
