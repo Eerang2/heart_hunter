@@ -1,10 +1,10 @@
-package heart_link.member.api;
+package heart_link.presentation.member.api;
 
 import heart_link.application.files.FileUpload;
 import heart_link.application.member.repository.entity.ProfileImageEntity;
 import heart_link.application.member.service.AuthService;
-import heart_link.member.data.request.MemberSignUpReq;
-import heart_link.member.data.request.OAuthStateReq;
+import heart_link.presentation.member.data.request.MemberSignUpReq;
+import heart_link.presentation.member.data.request.OAuthStateReq;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

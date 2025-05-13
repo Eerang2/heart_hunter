@@ -3,7 +3,7 @@ package heart_link.application.member.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import heart_link.application.member.enums.Gender;
-import heart_link.member.data.response.MemberRes;
+import heart_link.presentation.member.data.response.MemberRes;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

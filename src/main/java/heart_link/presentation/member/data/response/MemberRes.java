@@ -1,4 +1,4 @@
-package heart_link.member.data.response;
+package heart_link.presentation.member.data.response;
 
 import heart_link.application.member.enums.Gender;
 import lombok.AllArgsConstructor;

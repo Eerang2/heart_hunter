@@ -6,7 +6,7 @@ import heart_link.application.member.repository.ProfileImageRepository;
 import heart_link.application.member.repository.entity.InterestEntity;
 import heart_link.application.member.repository.entity.MemberEntity;
 import heart_link.application.member.repository.entity.ProfileImageEntity;
-import heart_link.member.data.request.MemberSignUpReq;
+import heart_link.presentation.member.data.request.MemberSignUpReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

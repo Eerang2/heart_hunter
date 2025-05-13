@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+<link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+
+<div class="mypage-container">
+    <!-- 사이드 메뉴 -->
+    <aside class="sidebar">
+        <ul>
+            <li><a href="#" onclick="showTab('profile')">프로필 수정</a></li>
+            <li><a href="#" onclick="showTab('matching')">매칭 설정</a></li>
+            <li><a href="#" onclick="showTab('likes')">찜한 사람</a></li>
+            <li><a href="#" onclick="showTab('chat')">채팅 설정</a></li>
+            <li><a href="#" onclick="showTab('payment')">결제 내역</a></li>
+            <li><a href="#" onclick="showTab('history')">매칭 히스토리</a></li>
+        </ul>
+    </aside>
+
+    <!-- 본문 -->
+    <section class="content">
+        <!-- 프로필 수정 -->
+        <div id="tab-profile" class="tab-content active">
+            <div class="section-title">프로필 이미지 수정</div>
+            <form>
+                <label>대표 이미지</label>
+                <div class="image-box">
+                    <input type="file" name="mainImage" hidden id="main-upload">
+                    <label for="main-upload" class="image-placeholder">+</label>
+                </div>
+
+                <label>서브 이미지 (최대 2장)</label>
+                <div class="image-boxes">
+                    <div class="image-box">
+                        <input type="file" name="subImage1" hidden id="sub-upload1">
+                        <label for="sub-upload1" class="image-placeholder">+</label>
+                    </div>
+                    <div class="image-box">
+                        <input type="file" name="subImage2" hidden id="sub-upload2">
+                        <label for="sub-upload2" class="image-placeholder">+</label>
+                    </div>
+                </div>
+                <br/>
+                <button type="submit">수정하기</button>
+            </form>
+        </div>
+
+        <!-- 매칭 설정 -->
+        <div id="tab-matching" class="tab-content">
+            <div class="section-title">매칭 설정</div>
+            <label>연애 매칭</label>
+            <div class="switch-box">
+                <input type="checkbox" id="romance" name="romance" />
+                <label for="romance">ON/OFF</label>
+            </div>
+
+            <label>친구 매칭</label>
+            <div class="switch-box">
+                <input type="checkbox" id="friend" name="friend" />
+                <label for="friend">ON/OFF</label>
+            </div>
+        </div>
+
+        <!-- 찜한 사람 -->
+        <div id="tab-likes" class="tab-content">
+            <div class="section-title">내가 찜한 사람</div>
+            <ul>
+                <li>💖 닉네임1</li>
+                <li>💖 닉네임2</li>
+                <li>💖 닉네임3</li>
+            </ul>
+        </div>
+
+        <!-- 채팅 설정 -->
+        <div id="tab-chat" class="tab-content">
+            <div class="section-title">1:1 채팅 설정</div>
+            <label>채팅 수락</label>
+            <div class="switch-box">
+                <input type="checkbox" id="chatAccept" />
+                <label for="chatAccept">ON/OFF</label>
+            </div>
+        </div>
+
+        <!-- 결제 내역 -->
+        <div id="tab-payment" class="tab-content">
+            <div class="section-title">결제 내역</div>
+            <table border="1">
+                <thead>
+                <tr><th>상품명</th><th>결제일</th><th>유효기간</th></tr>
+                </thead>
+                <tbody>
+                <tr><td>1개월 이용권</td><td>2025-05-01</td><td>2025-06-01</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 매칭 히스토리 -->
+        <div id="tab-history" class="tab-content">
+            <div class="section-title">매칭 히스토리</div>
+            <ul>
+                <li>❤️ 닉네임A님과 2025-04-11 매칭</li>
+                <li>❤️ 닉네임B님과 2025-04-25 매칭</li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<script>
+    function showTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+    }
+</script>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

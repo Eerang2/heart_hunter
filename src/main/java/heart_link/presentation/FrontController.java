@@ -1,7 +1,7 @@
 package heart_link.presentation;
 
 import heart_link.application.member.service.NaverAuthService;
-import heart_link.member.data.response.MemberRes;
+import heart_link.presentation.member.data.response.MemberRes;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

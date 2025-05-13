@@ -1,7 +1,7 @@
 package heart_link.application.member.repository.entity;
 
 import heart_link.application.member.enums.Gender;
-import heart_link.member.data.request.MemberSignUpReq;
+import heart_link.presentation.member.data.request.MemberSignUpReq;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
