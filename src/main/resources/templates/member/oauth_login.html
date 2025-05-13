@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="oauthLoginForm">
+    <input type="hidden" name="email" value="${session.oauth_login_member.email}" />
+    <!-- 필요한 정보만 넘김 -->
+</form>
+
+<script>
+    $(document).ready(function() {
+        $("#oauthLoginForm").submit(function(event) {
+            event.preventDefault(); // 기본 폼 제출 막기
+            let email = $("#email").val().trim();
+            $.ajax({
+                type: "POST",
+                url: "/api/login",
+                contentType: "application/json",
+                data: JSON.stringify({ email: email,}),
+                success: function() {
+                    // 토큰 저장 (로컬스토리지 또는 쿠키 사용 가능)
+                    window.location.href = "/main"; // 메인 페이지로 이동
+                },
+                error: function(xhr) {
+                    let errorMsg = xhr.responseJSON?.message || "로그인 실패. 다시 시도해주세요.";
+                    window.location.href = "/"; // 시작 페이지로 이동
+                    alert(errorMsg);
+                }
+            });
+        })
+    })
+
+</script>
+</body>
+</html>

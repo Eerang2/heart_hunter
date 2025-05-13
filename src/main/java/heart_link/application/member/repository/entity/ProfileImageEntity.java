@@ -1,6 +1,7 @@
 package heart_link.application.member.repository.entity;
 
 
+import heart_link.application.member.enums.ImageRole;
 import heart_link.application.member.enums.ImageType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,10 @@ public class ProfileImageEntity {
     private String url;
 
     @Enumerated(EnumType.STRING)
-    private ImageType type;
+    private ImageType type;         // ex) .jpg, .jpeg
+
+    @Enumerated(EnumType.STRING)
+    private ImageRole role;         //ex) 대표이미지, 서브이미지
 
     private Long memberId;
 
@@ -31,10 +35,11 @@ public class ProfileImageEntity {
         return new ProfileImageEntity(url, type);
     }
 
-    public static ProfileImageEntity of(ProfileImageEntity profileImageEntity, Long memberId) {
+    public static ProfileImageEntity of(ProfileImageEntity profileImageEntity, Long memberId, ImageRole role) {
         return ProfileImageEntity.builder()
                 .url(profileImageEntity.getUrl())
                 .type(profileImageEntity.getType())
+                .role(role)
                 .memberId(memberId)
                 .build();
     }
