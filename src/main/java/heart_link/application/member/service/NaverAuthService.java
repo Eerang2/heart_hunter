@@ -2,6 +2,9 @@ package heart_link.application.member.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import heart_link.application.exceptions.social.CSRFAttackDetectedException;
+import heart_link.application.exceptions.enums.ErrorCode;
+import heart_link.application.exceptions.auth.TimeoutRequestException;
 import heart_link.application.member.enums.Gender;
 import heart_link.presentation.member.data.response.MemberRes;
 import jakarta.servlet.http.HttpSession;
@@ -38,11 +41,11 @@ public class NaverAuthService {
         Long createdAt = (Long) session.getAttribute("oauth_state_created_at");
 
         // 1. CSRF 공격 방지: state 값이 불일치하면 예외 발생
-        if (!state.equals(savedState)) throw new IllegalStateException("CSRF 공격");
+        if (!state.equals(savedState)) throw new CSRFAttackDetectedException(ErrorCode.AUTH_CSRF_ATTACK_DETECTED);
 
         // 2. 시간 초과 검증: 생성된 지 10분이 넘으면 예외 발생
         if (System.currentTimeMillis() - createdAt > TIME_LIMIT)
-            throw new IllegalStateException("시간 초과");
+            throw new TimeoutRequestException(ErrorCode.TIMEOUT_REQUEST);
 
         // 3. 액세스 토큰 요청 URL 생성
         String tokenUrl = UriComponentsBuilder

@@ -3,10 +3,12 @@ package heart_link.infrastructure.util.data;
 import heart_link.application.member.enums.Gender;
 import heart_link.application.member.repository.entity.MemberEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@Builder
 public class JwtPayloadResponseDTO {
 
     private Long memberId;

@@ -357,7 +357,7 @@
       contentType: false,
       processData: false,
       success: function (response) {
-        window.location.href="/main";
+        window.location.href="/login/" + response;
       },
       error: function (xhr) {
         alert('오류: ' + xhr.responseText);

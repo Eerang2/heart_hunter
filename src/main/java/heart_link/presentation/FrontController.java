@@ -26,12 +26,6 @@ public class FrontController {
         return "member/createMember";
     }
 
-    @GetMapping("/login")
-    public String login() {
-
-        return "member/login";
-    }
-
     @GetMapping("/member/dongui")
     public String termAgree() {
         return "member/dongui";

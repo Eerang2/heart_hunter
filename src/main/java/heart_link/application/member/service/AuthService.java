@@ -1,6 +1,10 @@
 package heart_link.application.member.service;
 
+import heart_link.application.exceptions.enums.ErrorCode;
+import heart_link.application.exceptions.auth.InvalidInterestException;
+import heart_link.application.exceptions.auth.InvalidProfileImageException;
 import heart_link.application.member.enums.ImageRole;
+import heart_link.application.member.enums.ProviderType;
 import heart_link.application.member.enums.TermsType;
 import heart_link.application.member.repository.InterestRepository;
 import heart_link.application.member.repository.MemberRepository;
@@ -11,7 +15,6 @@ import heart_link.application.member.repository.entity.MemberEntity;
 import heart_link.application.member.repository.entity.ProfileImageEntity;
 import heart_link.application.member.repository.entity.TermsAgreementEntity;
 import heart_link.presentation.member.data.request.MemberSignUpReq;
-import heart_link.presentation.member.data.response.MemberRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +36,9 @@ public class AuthService {
     private final TermsAgreementRepository termsAgreementRepository;
 
     @Transactional
-    public MemberEntity signup(List<ProfileImageEntity> imageUrls, MemberSignUpReq request) {
+    public MemberEntity signup(List<ProfileImageEntity> imageUrls, MemberSignUpReq request, ProviderType providerType) {
 
-        MemberEntity member = createAndSaveMember(request);
+        MemberEntity member = createAndSaveMember(request, providerType);
         Long memberId = memberRepository.save(member).getId();
 
         List<ProfileImageEntity> images = processProfileImages(imageUrls, memberId);
@@ -51,8 +54,8 @@ public class AuthService {
     }
 
     // 회원 저장
-    private MemberEntity createAndSaveMember(MemberSignUpReq request) {
-        MemberEntity entity = new MemberEntity().toEntity(request);
+    private MemberEntity createAndSaveMember(MemberSignUpReq request, ProviderType providerType) {
+        MemberEntity entity = new MemberEntity().toEntity(request, providerType);
         return memberRepository.save(entity);
     }
 
@@ -60,9 +63,9 @@ public class AuthService {
     // 프로필 이미지 검사후 List<ProfileImageEntity>에 데이터 저장
     private List<ProfileImageEntity> processProfileImages(List<ProfileImageEntity> rawImages, Long memberId) {
         if (rawImages == null || rawImages.isEmpty()) {
-            throw new IllegalArgumentException("최소 하나의 프로필 이미지가 필요합니다.");
+            throw new InvalidProfileImageException(ErrorCode.MISSING_REQUIRED_FIELDS);
         } else if (rawImages.size() > 3) {
-            throw new IllegalArgumentException("프로필은 최대 3개까지입니다.");
+            throw new InvalidProfileImageException(ErrorCode.VALID_IMAGE_COUNT);
         }
 
         return IntStream.range(0, rawImages.size())
@@ -77,9 +80,9 @@ public class AuthService {
     // 괸심사 검사후 List<InterestEntity>에 데이터 저장
     private List<InterestEntity> processInterests(List<String> interests, Long memberId) {
         if (interests == null || interests.isEmpty()) {
-            throw new IllegalArgumentException("데이터가 비어있습니다.");
+            throw new InvalidInterestException(ErrorCode.MISSING_REQUIRED_FIELDS);
         } else if (interests.size() > 6) {
-            throw new IllegalArgumentException("관심사는 최대 6개까지입니다.");
+            throw new InvalidInterestException(ErrorCode.INVALID_REQUEST_BODY);
         }
         return interests.stream()
                 .map(interest -> InterestEntity.of(interest, memberId))
@@ -88,6 +91,10 @@ public class AuthService {
 
     public Optional<MemberEntity> findByEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public Optional<MemberEntity> findById(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
 

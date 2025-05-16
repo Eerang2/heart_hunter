@@ -1,15 +1,20 @@
 package heart_link.infrastructure.util;
 
 
+import heart_link.application.member.enums.Gender;
 import heart_link.infrastructure.util.data.JwtPayloadResponseDTO;
 import heart_link.infrastructure.util.data.JwtProperties;
+import heart_link.presentation.member.data.AuthConstants;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -143,6 +148,15 @@ public class JwtUtil {
         return LocalDateTime.ofInstant(expiration.toInstant(), ZoneId.systemDefault());
     }
 
+    public String extractAccessTokenFromRequest(HttpServletRequest request) {
+        String header = request.getHeader(AuthConstants.HEADER_AUTHORIZATION);
+        if (header != null && header.startsWith(AuthConstants.TOKEN_PREFIX)) {
+            return header.substring(7);
+        }
+        return null;
+    }
+
+
     // 토큰 읽고 클레임 꺼내오는 메서드
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
@@ -150,7 +164,29 @@ public class JwtUtil {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-
-
     }
+    public JwtPayloadResponseDTO extractPayloadDTO(String accessToken) {
+        Claims claims = extractAllClaims(accessToken);
+
+        Long memberId = Long.valueOf(claims.getSubject()); // 수정됨
+        String genderStr = claims.get("gender", String.class);
+
+        Gender gender = Gender.valueOf(genderStr);
+
+        return JwtPayloadResponseDTO.builder()
+                .memberId(memberId)
+                .gender(gender)
+                .build();
+    }
+
+    public String extractGenderFromExpiredToken(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            return claims.get("gender", String.class);
+        } catch (JwtException e) {
+            log.error("Failed to extract gender from token", e);
+            return null;
+        }
+    }
+
 }

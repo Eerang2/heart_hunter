@@ -1,11 +1,13 @@
 package heart_link.presentation.member.auth;
 
+import heart_link.application.member.enums.ProviderType;
 import heart_link.application.member.repository.entity.MemberEntity;
 import heart_link.application.member.service.AuthService;
 import heart_link.application.member.service.NaverAuthService;
 import heart_link.infrastructure.provider.JwtProvider;
 import heart_link.infrastructure.util.CookieUtil;
 import heart_link.infrastructure.util.data.TokensResponseDTO;
+import heart_link.presentation.member.data.AuthConstants;
 import heart_link.presentation.member.data.response.MemberRes;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -26,7 +28,6 @@ public class SocialLoginController {
     private final JwtProvider jwtProvider;
     private final CookieUtil cookieUtil;
 
-    private static final String TOKEN_PREFIX = "Bearer ";
     /**
      * 네이버 본인 인증 API
      * @return 회원가입 리다이렉트
@@ -42,12 +43,11 @@ public class SocialLoginController {
         Optional<MemberEntity> memberEntity = authService.findByEmail(member.getEmail());
 
         if (memberEntity.isPresent()) {
-            MemberEntity entity = memberEntity.orElseThrow(IllegalStateException::new);
-            TokensResponseDTO tokensResponseDTO = jwtProvider.generateToken(entity);
-            saveTokens(tokensResponseDTO, response);
-            return "redirect:/main";
+            Long id = memberEntity.orElseThrow(IllegalStateException::new).getId();
+            return "redirect:/login/" + id;
         } else {
             session.setAttribute("member", member);
+            session.setAttribute("providerType", ProviderType.NAVER);
             session.setMaxInactiveInterval(30 * 60);
             return "redirect:/member/dongui";
         }
@@ -55,6 +55,6 @@ public class SocialLoginController {
 
     private void saveTokens(TokensResponseDTO member, HttpServletResponse response) {
         cookieUtil.addRefreshTokenToCookie(member.getRefreshToken(), response);
-        response.setHeader(HttpHeaders.AUTHORIZATION, TOKEN_PREFIX + member.getAccessToken());
+        response.setHeader(AuthConstants.HEADER_AUTHORIZATION, AuthConstants.TOKEN_PREFIX + member.getAccessToken());
     }
 }

@@ -40,12 +40,13 @@ public class MemberEntity {
 
     private String birth;
 
-    public MemberEntity toEntity(MemberSignUpReq req) {
+    public MemberEntity toEntity(MemberSignUpReq req, ProviderType providerType) {
         return MemberEntity.builder()
                 .name(req.getName())
                 .email(req.getEmail())
                 .password(req.getPassword())
                 .gender(req.getGender())
+                .providerType(providerType)
                 .lookingFor(req.getLookingFor())
                 .birth(req.getBirthday())
                 .build();

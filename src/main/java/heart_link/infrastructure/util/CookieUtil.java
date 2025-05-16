@@ -1,6 +1,7 @@
 package heart_link.infrastructure.util;
 
 import heart_link.infrastructure.util.data.JwtProperties;
+import heart_link.presentation.member.data.AuthConstants;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,7 +28,7 @@ public class CookieUtil {
 
     //  쿠키에 리프레시 토큰 저장
     public void addRefreshTokenToCookie(String refreshToken, HttpServletResponse response) {
-        Cookie cookie = new Cookie("refreshToken", refreshToken);
+        Cookie cookie = new Cookie(AuthConstants.COOKIE_REFRESH_TOKEN, refreshToken);
         cookie.setHttpOnly(true); // XSS 공격 방지
         cookie.setSecure(true);   // HTTPS에서만 전송
         cookie.setPath("/");      // 모든 경로에서 사용 가능
@@ -43,7 +44,7 @@ public class CookieUtil {
         }
 
         return Arrays.stream(request.getCookies())
-                .filter(cookie -> "refreshToken".equals(cookie.getName()))
+                .filter(cookie -> AuthConstants.COOKIE_REFRESH_TOKEN.equals(cookie.getName()))
                 .map(Cookie::getValue)
                 .findFirst()
                 .orElse(null);
@@ -51,7 +52,7 @@ public class CookieUtil {
 
     // 쿠키 삭제
     public void deleteRefreshToken(HttpServletResponse response) {
-        Cookie cookie = new Cookie("refreshToken", null);
+        Cookie cookie = new Cookie(AuthConstants.COOKIE_REFRESH_TOKEN, null);
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath("/");

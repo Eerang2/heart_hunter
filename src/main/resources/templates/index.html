@@ -156,6 +156,10 @@
         //프로필 팝업 닫기
         ProfilePopupModule.initializeProfilePopupClose();
     });
+
+    localStorage.removeItem('agreements');
+    sessionStorage.removeItem('oauth_state');
+    sessionStorage.removeItem('memberDto');
 </script>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
