@@ -22,14 +22,12 @@
 
                     <div class="owl-carousel owl-theme" >
                         <div class="owl-carousel-info-wrap item"
-                             style="cursor: pointer"
-                             th:each="review : ${ReviewTop5}"
-                             th:attr="onclick='window.location.href=&quot;/review/photodetail?reviewNo=' + ${review.reviewNo} + '&quot;'">
-                            <img th:src="${review.firstImageUrl}"
+                             style="cursor: pointer">
+                             <img
                                  class="owl-carousel-image img-fluid" alt="">
 
                             <div class="owl-carousel-info">
-                                <h4 class="mb-2" th:text="${review.reviewTitle}">
+                                <h4 class="mb-2">
                                 </h4>
                                 <p style="margin: 0">Photo Review</p>
                             </div>
@@ -51,19 +49,19 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-12 mb-4 mb-lg-0" th:each="feed : ${FeedTop}">
-                    <div class="custom-block d-flex" th:onclick="'location.href=\'/feed\''">
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0" >
+                    <div class="custom-block d-flex">
                         <div class="custom-block-info">
                             <div class="mt-2">
                                 #&nbsp;
-                                <span th:text="${feed.feedTag != null ? feed.feedTag : 'add'}"></span>
+                                <span ></span>
                             </div>
-                            <h6 class="mb-2 feed-title" th:text="${feed.feedTitle != null ? feed.feedTitle : 'Feed'}"></h6>
-                            <p class="mb-0 main-feed-content" th:text="${feed.feedContent != null ? feed.feedContent : 'feed...'}"></p>
+                            <h6 class="mb-2 feed-title" ></h6>
+                            <p class="mb-0 main-feed-content"></p>
 
                             <div class="custom-block-bottom d-flex justify-content-between mt-3">
                                 <p class="bi-heart me-1">
-                                    <span th:text="${feed.likeCount != null ? feed.likeCount : '0'}"></span>
+                                    <span ></span>
                                 </p>
                             </div>
                         </div>
@@ -104,33 +102,33 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-12 mb-4 mb-lg-0" th:each="user : ${UserTop}">
-                    <div class="custom-block custom-block-full liked-prof-item" th:data-liked-user-no="${user.userNumber}">
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0" >
+                    <div class="custom-block custom-block-full liked-prof-item">
                         <div class="custom-block-image-wrap">
-                                <img th:src="${user.userPhotoPath}" class="custom-block-image img-fluid"
+                                <img class="custom-block-image img-fluid"
                                      alt="">
                         </div>
 
                         <div class="custom-block-info">
                             <div class="custom-profile-box">
-                                <h5 class="mb-2" th:text="${user.nickname}"></h5>
-                                <span class="mb-0" th:text="${user.gender == 'F' ? '여성' : '남성'}"></span>
+                                <h5 class="mb-2" ></h5>
+                                <span class="mb-0" ></span>
                             </div>
                             <p class="mb-0">
                                 취미<br>
-                                <small th:text="${user.hobbyName}" class="custom-main-p"></small>
+                                <small  class="custom-main-p"></small>
                             </p>
                             <p class="mb-0">
                                 Like<br>
-                                <small th:text="${user.personalLike}" class="custom-main-p"></small>
+                                <small class="custom-main-p"></small>
                             </p>
                             <p class="mb-0">
                                 Hate<br>
-                                <small th:text="${user.personalHate}" class="custom-main-p"></small>
+                                <small class="custom-main-p"></small>
                             </p>
                             <div class="custom-block-bottom d-flex justify-content-between mt-3">
                                 <p class="bi-heart me-1">
-                                    <span th:text="${user.likeCnt}">2.5k</span>
+                                    <span >2.5k</span>
                                 </p>
                             </div>
                         </div>
